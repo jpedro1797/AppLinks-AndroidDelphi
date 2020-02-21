@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2019/10/28 09:07:55.000.829,=C:\Users\Joao Pedro\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2019/10/28 09:09:20.000.169,C:\Users\Joao Pedro\Desktop\Links Android\uPrincipal.pas=C:\Users\Joao Pedro\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2019/10/28 09:09:20.000.169,C:\Users\Joao Pedro\Desktop\Links Android\uPrincipal.fmx=C:\Users\Joao Pedro\Documents\Embarcadero\Studio\Projects\Unit2.fmx</Transaction>
+    <Transaction>2019/10/28 09:09:45.000.602,C:\Users\Joao Pedro\Desktop\Links Android\Links.dproj=C:\Users\Joao Pedro\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2019/10/28 12:15:26.000.846,=C:\Users\Joao Pedro\Desktop\Links Android\Unit1.pas</Transaction>
+    <Transaction>2019/10/28 12:16:09.000.239,C:\Users\Joao Pedro\Desktop\Links Android\DataM.pas=C:\Users\Joao Pedro\Desktop\Links Android\Unit1.pas</Transaction>
+    <Transaction>2019/10/28 12:16:09.000.239,C:\Users\Joao Pedro\Desktop\Links Android\DataM.dfm=C:\Users\Joao Pedro\Desktop\Links Android\Unit1.dfm</Transaction>
+    <Transaction>2019/10/28 12:55:17.000.331,=C:\Users\Joao Pedro\Desktop\Links Android\Unit1.pas</Transaction>
+    <Transaction>2019/10/28 12:56:37.000.954,C:\Users\Joao Pedro\Desktop\Links Android\frmRegistro.pas=C:\Users\Joao Pedro\Desktop\Links Android\Unit1.pas</Transaction>
+    <Transaction>2019/10/28 12:56:37.000.954,C:\Users\Joao Pedro\Desktop\Links Android\frmRegistro.fmx=C:\Users\Joao Pedro\Desktop\Links Android\Unit1.fmx</Transaction>
+  </Transactions>  <ActiveMobileDevice>   <NoProfile Android=""/>
+  </ActiveMobileDevice>
+</BorlandProject>

@@ -1,0 +1,161 @@
+unit uPrincipal;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.StdCtrls, FMX.Layouts, FMX.ListBox,
+  FMX.Controls.Presentation, FMX.Effects, FMX.Objects, FMX.TabControl, FMX.Edit, FMX.SearchBox, FireDAC.Stan.Param;
+
+type
+  TfrmPrincipal = class(TForm)
+    TabControl1: TTabControl;
+    TabHome: TTabItem;
+    TabAbout: TTabItem;
+    Barra: TRectangle;
+    ShadowBarra: TShadowEffect;
+    spbMenu: TSpeedButton;
+    spbShare: TSpeedButton;
+    lblTitulo: TLabel;
+    LySub: TLayout;
+    spdAdd: TSpeedButton;
+    spbSearch: TSpeedButton;
+    R01: TRectangle;
+    R02: TRectangle;
+    R03: TRectangle;
+    lblReg: TLabel;
+    Lista: TListBox;
+    Rectangle1: TRectangle;
+    SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
+    Label1: TLabel;
+    Layout1: TLayout;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Image1: TImage;
+    RecInsert: TRectangle;
+    edtDescricao: TEdit;
+    edtLink: TEdit;
+    SpeedButton3: TSpeedButton;
+    SearchBox1: TSearchBox;
+    procedure spdAddClick(Sender: TObject);
+    procedure SpeedButton3Click(Sender: TObject);
+    procedure spbSearchClick(Sender: TObject);
+  private
+    itemlist: array [0 .. 99] of TListBoxItem;
+    procedure ListarLinks;
+    procedure LimparLinks;
+    procedure Inserir;
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmPrincipal: TfrmPrincipal;
+  campos: integer;
+
+implementation
+
+{$R *.fmx}
+
+uses DataM, frmRegistro;
+
+procedure TfrmPrincipal.Inserir;
+begin
+  DM.qryAux.Close;
+  DM.qryAux.SQL.Clear;
+  DM.qryAux.SQL.Add(' INSERT INTO links (descricao,link,status) VALUES(:descricao,:link,0) ');
+  DM.qryAux.Params[0].Value := edtDescricao.Text;
+  DM.qryAux.Params[1].Value := edtLink.Text;
+  try
+    try
+      DM.qryAux.ExecSQL;
+    except
+      on E: exception do
+        ShowMessage(E.Message);
+    end;
+  finally
+    ShowMessage('Link:' + edtDescricao.Text + ' adicionado com sucesso!');
+  end;
+end;
+
+procedure TfrmPrincipal.LimparLinks;
+var
+  i: integer;
+begin
+  for i := 0 to campos - 1 do
+  begin
+    TRegistro(FindComponent('Link' + IntToStr(i))).DisposeOf;
+    itemlist[i].DisposeOf;
+  end;
+  Lista.Clear;
+end;
+
+procedure TfrmPrincipal.ListarLinks;
+var
+  i: integer;
+const
+  NamePrefix = 'link';
+
+begin
+  DM.qryAux.Close;
+  DM.qryAux.SQL.Clear;
+  DM.qryAux.SQL.Add('SELECT * FROM link');
+  DM.qryAux.Open();
+  if DM.qryAux.RecordCount > 0 then
+  begin
+    campos := DM.qryAux.RecordCount;
+    lblReg.Text := IntToStr(campos);
+    DM.qryAux.First;
+    for i := 0 to campos - 1 do
+    begin
+      itemlist[i] := TListBoxItem.Create(Self);
+      itemlist[i].Parent := Lista;
+      itemlist[i].Selectable := False;
+      itemlist[i].ItemData.Detail := DM.qryAux.FieldByName('descricao').AsString;
+      TRegistro.Create(Self).Name := NamePrefix + IntToStr(i);
+      with TRegistro(FindComponent(NamePrefix + IntToStr(i))) do
+      begin
+        Parent := itemlist[i];
+        Tag := DM.qryAux.FieldByName('id').AsInteger;
+      end;
+    end;
+
+  end;
+
+end;
+
+procedure TfrmPrincipal.spbSearchClick(Sender: TObject);
+begin
+  if SearchBox1.Visible then
+    SearchBox1.Visible := False
+  else
+    SearchBox1.Visible := true;
+end;
+
+procedure TfrmPrincipal.spdAddClick(Sender: TObject);
+begin
+  RecInsert.Visible := true;
+end;
+
+procedure TfrmPrincipal.SpeedButton3Click(Sender: TObject);
+begin
+  if (edtDescricao.Text = '') or (edtLink.Text = '') then
+  begin
+    RecInsert.Visible := False;
+  end
+  else
+  begin
+    Inserir;
+    edtDescricao.Text := '';
+    edtLink.Text := '';
+    RecInsert.Visible := False;
+    LimparLinks;
+    ListarLinks;
+  end;
+
+end;
+
+end.
